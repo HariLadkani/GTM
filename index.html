@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Widget — Product Details</title>
+
+  <style>
+    :root {
+      --background: #f4f6f8;
+      --surface: #ffffff;
+      --text: #17212b;
+      --muted: #667085;
+      --primary: #1769e0;
+      --primary-hover: #1257ba;
+      --border: #e4e7ec;
+      --success: #18794e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--background);
+    }
+
+    .page-shell {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+    }
+
+    .product-card {
+      width: min(960px, 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr);
+      gap: 48px;
+      align-items: center;
+      padding: 48px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 16px 50px rgba(23, 33, 43, 0.08);
+    }
+
+    .product-media {
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: linear-gradient(145deg, #eef4ff, #dce9ff);
+      border-radius: 16px;
+    }
+
+    /* Inline SVG keeps the starting project self-contained. */
+    .product-media svg {
+      width: 78%;
+      max-width: 360px;
+      filter: drop-shadow(0 22px 18px rgba(29, 78, 147, 0.18));
+    }
+
+    .product-details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    #product-name {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    #product-price {
+      margin: 18px 0;
+      font-size: 1.75rem;
+      font-weight: 750;
+    }
+
+    .product-description {
+      max-width: 430px;
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    #add-to-cart {
+      min-width: 180px;
+      border: 0;
+      border-radius: 10px;
+      padding: 15px 22px;
+      color: #ffffff;
+      background: var(--primary);
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+      transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    #add-to-cart:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 8px 20px rgba(23, 105, 224, 0.22);
+      transform: translateY(-2px);
+    }
+
+    #add-to-cart:active {
+      transform: translateY(0);
+    }
+
+    #add-to-cart:focus-visible {
+      outline: 3px solid rgba(23, 105, 224, 0.28);
+      outline-offset: 3px;
+    }
+
+    #cart-status {
+      min-height: 24px;
+      margin: 14px 0 0;
+      color: var(--success);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        align-items: start;
+        padding: 16px;
+      }
+
+      .product-card {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      .product-media {
+        min-height: 320px;
+      }
+
+      #add-to-cart {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .product-media {
+        min-height: 240px;
+      }
+
+      #product-price {
+        margin: 14px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page-shell">
+    <article class="product-card" aria-labelledby="product-name">
+      <div class="product-media" aria-label="Illustration of Super Widget">
+        <!-- The placeholder image is inline and has no external dependencies. -->
+        <svg viewBox="0 0 420 420" role="img" aria-label="Blue Super Widget">
+          <defs>
+            <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#75a7ff" />
+              <stop offset="1" stop-color="#1769e0" />
+            </linearGradient>
+          </defs>
+          <circle cx="210" cy="210" r="135" fill="#c9ddff" />
+          <rect x="92" y="126" width="236" height="168" rx="42" fill="url(#body)" />
+          <rect x="128" y="162" width="164" height="96" rx="24" fill="#edf5ff" />
+          <circle cx="210" cy="210" r="38" fill="#1769e0" />
+          <circle cx="210" cy="210" r="14" fill="#ffffff" />
+          <circle cx="132" cy="210" r="10" fill="#ffffff" opacity="0.9" />
+          <circle cx="288" cy="210" r="10" fill="#ffffff" opacity="0.9" />
+        </svg>
+      </div>
+
+      <section class="product-details">
+        <p class="eyebrow">Featured product</p>
+        <h1 id="product-name">Super Widget</h1>
+
+        <!-- Keep the visible price as plain text for easy DOM access. -->
+        <p id="product-price">$19.99</p>
+
+        <p class="product-description">
+          A clever everyday companion that combines simple controls, durable construction,
+          and a compact design. Built to make daily tasks feel easier.
+        </p>
+
+        <button id="add-to-cart" type="button">Add to Cart</button>
+        <p id="cart-status" role="status" aria-live="polite"></p>
+      </section>
+    </article>
+  </main>
+
+  <script>
+    // Demo-only interaction: it does not create a real cart or make a request.
+    const addToCartButton = document.getElementById("add-to-cart");
+    const cartStatus = document.getElementById("cart-status");
+
+    addToCartButton.addEventListener("click", () => {
+      cartStatus.textContent = "Super Widget added to cart.";
+
+      // Clear the message after a moment so repeated demo clicks stay simple.
+      window.clearTimeout(addToCartButton.statusTimer);
+      addToCartButton.statusTimer = window.setTimeout(() => {
+        cartStatus.textContent = "";
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
