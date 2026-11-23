@@ -213,6 +213,7 @@
         </p>
 
         <button id="add-to-cart" type="button">Add to Cart</button>
+        <button id="send-to-api" type=""button">Send Product to API</button>
         <p id="cart-status" role="status" aria-live="polite"></p>
       </section>
     </article>
@@ -229,7 +230,6 @@
   </script>
 
   <script>
-    // Demo-only interaction: it does not create a real cart or make a request.
     const addToCartButton = document.getElementById("add-to-cart");
     const cartStatus = document.getElementById("cart-status");
 
@@ -242,6 +242,30 @@
         cartStatus.textContent = "";
       }, 3000);
     });
+  </script>
+
+  <script>
+  const sendToApiButton = document.getElementById("send-to-api");
+
+  sendToApiButton.addEventListener("click", async () => {
+
+      const productEvent = window.dataLayer.find(item => item.event === "product_view");
+
+      const response = await fetch("https://httpbin.org/post", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              product_name: productEvent.product_name,
+              product_price: productEvent.product_price
+          })
+      });
+
+      const result = await response.json();
+
+      console.log(result);
+});
   </script>
 </body>
 </html>
